@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# File execution order
+DirectoryIndex index.php index.html
+
+# Added to prevent directory browsing
+Options -Indexes
+
+# Redirect /index.php to / - will also clear /index.php/something to /something
+RewriteCond %{THE_REQUEST} ^[A-Z]+\ /index\.php(/[^\ ]*)?\ HTTP/
+RewriteRule ^index\.php(/(.*))?$ /$2 [R=301,L]
+
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
