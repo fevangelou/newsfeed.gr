@@ -142,8 +142,8 @@ var NUAMJR_UTILS = {
 
 				// Prepare template variables
 				var entryCssClass = 'amjrElement_'+ params.containerID +'_'+ counter;
-				var entryTime = entry.publishedDate.toLocaleTimeString() || '';
-				var entryDate = entry.publishedDate.toLocaleDateString() || '';
+				var entryTime = (entry.publishedDate) ? entry.publishedDate.toLocaleTimeString() : '';
+				var entryDate = (entry.publishedDate) ? entry.publishedDate.toLocaleDateString() : '';
 
 				// The template layout - swap entry.contentSnippet with entry.content below for a preview of the feed content
 				item = params.entryTheme.replace(/{entryCssClass}/g,entryCssClass)
