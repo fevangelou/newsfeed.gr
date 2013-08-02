@@ -142,7 +142,7 @@ var NUAMJR_UTILS = {
 
 				// Prepare template variables
 				var entryCssClass = 'amjrElement_'+ params.containerID +'_'+ counter;
-				if(entry.publishedDate===''){
+				if(entry.publishedDate==''){
 					var entryTime = '';
 					var entryDate = '';
 				} else {
