@@ -142,7 +142,8 @@ var NUAMJR_UTILS = {
 
 				// Prepare template variables
 				var entryCssClass = 'amjrElement_'+ params.containerID +'_'+ counter;
-				if(entry.publishedDate==''){
+				var checkDate = Date.parse(entry.publishedDate);
+				if(isNaN(checkDate)){
 					var entryTime = '';
 					var entryDate = '';
 				} else {
@@ -195,7 +196,8 @@ var NUAMJR = (function(){
 					var feedEntries = feedContent.entries;
 					for (var i = 0; i < feedEntries.length; i++) {
 						var entry = feedEntries[i];
-						if(entry.publishedDate==''){
+						var checkDate = Date.parse(entry.publishedDate);
+						if(isNaN(checkDate)){
 							var feedDate = new Date();
 						} else {
 							var feedDate = new Date(entry.publishedDate);
