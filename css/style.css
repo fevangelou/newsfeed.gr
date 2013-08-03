@@ -49,7 +49,7 @@ header h1 {float:left;color:#fff;padding:0;margin:0;}
 header h2 {float:right;color:#eee;padding:14px 0 0 0;margin:0;}
 header h2 a {color:#fff;border-bottom:1px dotted #555;}
 #uberContainer {width:98%;margin:auto;padding:10px 0 60px;}
-footer {position:fixed;bottom:0;left:0;right:0;text-align:center;padding:10px;font-size:11px;background:#222;border-top:1px solid #000;color:#eee;}
+footer {display:none;position:fixed;bottom:0;left:0;right:0;text-align:center;padding:10px;font-size:11px;background:#222;border-top:1px solid #000;color:#eee;}
 footer a {color:#fff;}
 
 /* AMJR */
