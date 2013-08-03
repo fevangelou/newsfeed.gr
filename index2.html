@@ -19,12 +19,13 @@
 	  <link rel="stylesheet" href="css/style.css" />
 
 	  <!-- AMJR [start] -->
+	  <script type="text/javascript" src="http://documentcloud.github.io/underscore/underscore-min.js"></script>
 	  <script type="text/javascript" src="js/amjr_2.0.js"></script>
 	  <script type="text/javascript">
 			NUAMJR_UTILS.ready(function() {
 
 				new NUAMJR.init({
-					containerID: 'amjrInst',		// the id of a UL element to hold feed results
+					containerID: 'uberContainer',		// the id of a UL element to hold feed results
 					count: 25, 							// maximum number of feed items to process per feed
 					loaderID: 'loaderInst1',			// the id of the LI element used as the loader
 					proxy: 'google',				// google or yql (google is faster)
@@ -46,9 +47,19 @@
 											</li>\
 					',											// theme for each feed entry
 					feeds: {								// source feeds (must be in RSS or Atom format) and preset feed name
-						'http://www.enikos.gr/feeds/content_latest.xml': 'enikos.gr',
-						'https://athens.indymedia.org/newswire.rss': 'Athens Indymedia'
-					}
+						'http://www.motomag.gr/moto/index.php?option=com_k2&view=itemlist&layout=category&task=category&id=1&Itemid=111&format=feed': 'Moto Mag',
+						'http://www.all4moto.gr/feed/': 'all4moto.gr',
+						'http://www.bikeit.gr/2012-05-03-12-44-17/world-news.feed': 'BikeIt',
+						'http://www.bikerspirit.net/main/?feed=rss2': 'BikerSpirit',
+						'http://motonews990.blogspot.com/feeds/posts/default': 'Moto News 990',
+						'http://www.motorsite.gr/rss-acat.php?acat=7&when=last': 'MotorSite.gr',
+						'http://www.mrbike.gr/website/proionta/?format=feed': 'Mr. Bike',
+						'http://www.mrbike.gr/website/motosikletes/?format=feed': 'Mr. Bike',
+						'http://www.sport-fm.gr/list/248.feed': 'Sport-fm.gr',
+						'http://www.zougla.gr/ArticleRss.xml?cid=212': 'Zougla.gr/Moto',
+						'http://www.autoblog.gr/category/general-categories/general-caregories/motorbikes/feed/': 'AutoBlog.gr'
+					},
+					templateContainer: 'grid'
 				});
 				
 				// Not AMJR!
@@ -67,11 +78,30 @@
 			<div class="clr"></div>
 		</header>
 		<div id="uberContainer">
-	    <ul id="amjrInst" class="amjr">
-	    	<li>Loading...</li>
-	    </ul>
-	    <div class="clr"></div>
+			<ul id="amjrInst" class="amjr">
+				<li class="loader">
+					<div>
+						Loading feeds...
+					</div>
+				</li>
+			</ul>
 		</div>
+    <script type="text/html" id="grid">
+	    <ul id="amjrInst" class="amjr">	    	
+	    	<% var op = rc.output; for(var i=0; i<op.length; i++){ var entry = op[i]; %>
+				<li>
+					<div class="<%= entry.cssClass %>">
+						<a class="title" target="_blank" title="<%- entry.title %>" href="<%= entry.link %>"><%= entry.title %></a>
+						<em><%= entry.date %> - <%= entry.time %></em>
+						<%= entry.image.replace(/moto\/\/moto/g,'moto') %>
+						<p><%= entry.content %></p>
+						<span>via <a target="_blank" href="<%= entry.feedLink %>" title="<%- entry.feedDescription %>"><%= entry.feedPresetTitle %></a></span>
+					</div>
+				</li>
+				<% } %>
+				<div class="clr"></div>
+			</ul>
+    </script>
     <footer>
     	Copyright &copy; 2008-<script type="text/javascript">var d=new Date();document.write(d.getFullYear());</script> Newsfeed.gr.
     </footer>

@@ -117,6 +117,8 @@ var NUAMJR_UTILS = {
 
 	feedOutput: function(feedsPool, params){
 
+		var template = document.getElementById(params.templateContainer).innerHTML;
+
 		var container = document.getElementById(params.containerID),
 				sortedFeeds = feedsPool.sort(NUAMJR_UTILS.sortByIndex),
 				j = 0,
@@ -128,30 +130,22 @@ var NUAMJR_UTILS = {
 						counter = j+1,
 						item;
 
-				// Some cleanups [custom, for this site only] - START
-				if(entry.title.indexOf("fevangelou: ") >= 0){
-					entry.title = entry.title.replace(/fevangelou: /i,'');
-				}
-				if(entry.content.indexOf("fevangelou: ") >= 0){
-					entry.content = entry.content.replace(/fevangelou: /i,'');
-				}
-				if(entry.content.indexOf("Advertise here with BSA") >= 0){
-					entry.content = entry.content.replace(/Advertise here with BSA/i,'');
-				}
-				// Some cleanups [custom, for this site only] - END
-
 				// Prepare template variables
-				var entryCssClass = 'amjrElement_'+ params.containerID +'_'+ counter;
+				entry.cssClass = 'amjrElement_'+ params.containerID +'_'+ counter;
+				
 				var checkDate = Date.parse(entry.publishedDate);
 				if(isNaN(checkDate)){
-					var entryTime = '';
-					var entryDate = '';
+					entry.time = '';
+					entry.date = '';
 				} else {
-					var entryTime = entry.publishedDate.toLocaleTimeString();
-					var entryDate = entry.publishedDate.toLocaleDateString();
+					entry.time = entry.publishedDate.toLocaleTimeString();
+					entry.date = entry.publishedDate.toLocaleDateString();
 				}
+				
+				
 
 				// The template layout - swap entry.contentSnippet with entry.content below for a preview of the feed content
+				/*
 				item = params.entryTheme.replace(/{entryCssClass}/g,entryCssClass)
 																.replace(/{entryTitle}/g,entry.title)
 																.replace(/{entryLink}/g,entry.link)
@@ -167,11 +161,24 @@ var NUAMJR_UTILS = {
 																.replace(/{entryFeedTitle}/g,entry.feedTitle)
 																.replace(/{entryFeedAuthor}/g,entry.feedAuthor)
 																.replace(/{entryOrder}/g,entry.order);
-				output.push(item);
+
+				//output.push(item);
+				*/
+				output.push(entry);
 			}
 		}
-		container.innerHTML += output.join('');
-
+		
+		var entries = {};
+		entries.output = output;
+		entries.loader = {
+			loaderID: params.loaderID,
+			totalCount: params.totalCount,
+			totalFeedsCount: params.feedCount
+		};
+		
+		_.templateSettings.variable = "rc";		
+    container.innerHTML = _.template(template, entries);
+		//container.innerHTML += output.join('');
 	}
 
 };
@@ -247,11 +254,15 @@ var NUAMJR = (function(){
 					}
 				}
 			}
+			
+			options.feedCount = feedCount;
 
 			// Loader
+			/*
 			container.innerHTML = options.loaderTheme.replace(/{loaderID}/g,options.loaderID)
 																							 .replace(/{totalEntriesCount}/g,options.totalCount)
 																							 .replace(/{totalFeedsCount}/g,feedCount);
+			*/
 			
 			// Get feeds
 			for (url in options.feeds) {
@@ -268,27 +279,6 @@ var NUAMJR = (function(){
 					scriptsLoaded = true;
 				});
 				
-				/*
-				jsonfeedscript.onload = function(){
-					scriptsLoaded = true;
-				}
-				
-
-				// New onLoad event to be compatible with IE8
-				jsonfeedscript.onload = jsonfeedscript.onreadystatechange = function(){
-					if ( !scriptsLoaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
-						scriptsLoaded = true;
-						// Handle memory leak in IE
-						jsonfeedscript.onload = jsonfeedscript.onreadystatechange = null;
-						if ( h && jsonfeedscript.parentNode ) {
-							h.removeChild( jsonfeedscript );
-						}
-    			}
-				};
-				
-				h.appendChild(jsonfeedscript);
-				*/
-				
 				feedCount++;
 			}
 
@@ -298,8 +288,8 @@ var NUAMJR = (function(){
 					window.setTimeout(initReplacement, 800);
 				} else {
 					NUAMJR_UTILS.feedOutput(window[feedPool],options);
-					var loader = document.getElementById(options.loaderID);
-					container.removeChild(loader);
+					//var loader = document.getElementById(options.loaderID);
+					//container.removeChild(loader);
 				}
 			}
 			initReplacement();
