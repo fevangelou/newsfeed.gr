@@ -222,7 +222,7 @@ var NUAMJR = (function(){
 						var allImages = theContent.match(/\<img(.*?)\>/i);
 						if(allImages){
 							theImage = allImages[0];
-							theImage = theImage.replace(/ (width|height|style|vspace|hspace|border|title)=".*?"/gi, '').replace(/ alt=".*?"/i, ' alt="'+cleanTitle+'"');
+							theImage = theImage.replace(/ (width|height|style|vspace|hspace|border|title)=".*?"/gi, '').replace(/ alt=".*?"/i, ' alt="'+cleanTitle+'"').replace(/src=".*?"/gi, 'src="http://src.sencha.io/$1"');
 						} else {
 							theImage = '';
 						}
