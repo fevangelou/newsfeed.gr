@@ -7,52 +7,7 @@
  */
 
 /* domready (c) Dustin Diaz 2012 - License MIT */
-!function(a,ctx,b){typeof module!="undefined"?module.exports=b():typeof define=="function"&&typeof define.amd=="object"?define(b):ctx[a]=b()}("nuready",this,function(a){function m(a){l=1;while(a=b.shift())a()}var b=[],c,d=!1,e=document,f=e.documentElement,g=f.doScroll,h="DOMContentLoaded",i="addEventListener",j="onreadystatechange",k="readyState",l=/^loade|c/.test(e[k]);return e[i]&&e[i](h,c=function(){e.removeEventListener(h,c,d),m()},d),g&&e.attachEvent(j,c=function(){/^c/.test(e[k])&&(e.detachEvent(j,c),m())}),a=g?function(c){self!=top?l?c():b.push(c):function(){try{f.doScroll("left")}catch(b){return setTimeout(function(){a(c)},50)}c()}()}:function(a){l?a():b.push(a)}});
-
-// Copyright (c) 2010 Nicholas C. Zakas. All rights reserved.
-// MIT License
-function EventTarget() {
-	this._listeners = {};
-}
-EventTarget.prototype = {
-	constructor: EventTarget,
-	on: function(type, listener) {
-		if (typeof this._listeners[type] == "undefined") {
-			this._listeners[type] = [];
-		}
-		this._listeners[type].push(listener);
-	},
-	fire: function(event) {
-		if (typeof event == "string") {
-			event = {
-				type: event
-			};
-		}
-		if (!event.target) {
-			event.target = this;
-		}
-		if (!event.type) {
-			throw new Error("Event object missing 'type' property.");
-		}
-		if (this._listeners[event.type] instanceof Array) {
-			var listeners = this._listeners[event.type];
-			for (var i = 0, len = listeners.length; i < len; i++) {
-				listeners[i].call(this, event);
-			}
-		}
-	},
-	off: function(type, listener) {
-		if (this._listeners[type] instanceof Array) {
-			var listeners = this._listeners[type];
-			for (var i = 0, len = listeners.length; i < len; i++) {
-				if (listeners[i] === listener) {
-					listeners.splice(i, 1);
-					break;
-				}
-			}
-		}
-	}
-};
+!function(e,t){typeof module!="undefined"?module.exports=t():typeof define=="function"&&typeof define.amd=="object"?define(t):this[e]=t()}("nuready",function(e){function p(e){h=1;while(e=t.shift())e()}var t=[],n,r=!1,i=document,s=i.documentElement,o=s.doScroll,u="DOMContentLoaded",a="addEventListener",f="onreadystatechange",l="readyState",c=o?/^loaded|^c/:/^loaded|c/,h=c.test(i[l]);return i[a]&&i[a](u,n=function(){i.removeEventListener(u,n,r),p()},r),o&&i.attachEvent(f,n=function(){/^c/.test(i[l])&&(i.detachEvent(f,n),p())}),e=o?function(n){self!=top?h?n():t.push(n):function(){try{s.doScroll("left")}catch(t){return setTimeout(function(){e(n)},50)}n()}()}:function(e){h?e():t.push(e)}})
 
 var NUAMJR_UTILS = {
 
