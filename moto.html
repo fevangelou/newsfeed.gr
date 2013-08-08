@@ -1,56 +1,39 @@
 <!doctype html>
 <html lang="en">
 	<head>
-	  <meta charset="utf-8" />
-	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<title>Newsfeed.gr | Moto</title>
 		<meta name="author" content="newsfeed.gr" />
 		<meta name="keywords" content="newsfeed.gr" />
 		<meta name="description" content="newsfeed.gr" />
 		<meta name="robots" content="index, follow" />
-	  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
-
-	  <!--[if IE]>
-	  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	  <style type="text/css">.clear{zoom:1;display:block;}</style>
-	  <![endif]-->
-
-	  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:regular,italic,bold,bolditalic" />
-	  <link rel="stylesheet" href="css/style.css" />
-
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
+		
+		<!--[if IE]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<style type="text/css">.clear{zoom:1;display:block;}</style>
+		<![endif]-->
+		
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:regular,italic,bold,bolditalic" />
+		<link rel="stylesheet" href="css/style.css" />
+		
+		<!-- AMJR [start] -->
 		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
 		<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
 		<script type="text/javascript" src="js/imagesloaded.js"></script>
-
-	  <!-- AMJR [start] -->
-	  <script type="text/javascript" src="js/underscore-min.js"></script>
-	  <script type="text/javascript" src="js/amjr_2.0.js"></script>
-	  <script type="text/javascript">
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<script type="text/javascript" src="js/amjr_2.0.js"></script>
+		<script type="text/javascript">
 			NUAMJR_UTILS.ready(function() {
 
 				new NUAMJR.init({
 					containerID: 'uberContainer',		// the id of a UL element to hold feed results
-					count: 25, 							// maximum number of feed items to process per feed
-					loaderID: 'loaderInst1',			// the id of the LI element used as the loader
-					proxy: 'google',				// google or yql (google is faster)
-					totalCount: 75,				// total feed items to output
-					loaderTheme: '<li id="{loaderID}" class="loader">\
-													<div>\
-														Loading the {totalEntriesCount} most recent feed items from a total of {totalFeedsCount} feed sources...\
-													</div>\
-												</li>\
-					',											// theme for the loader element
-					entryTheme: '<li>\
-												<div class="{entryCssClass}">\
-													<a class="title" target="_blank" title="{entryTitle}" href="{entryLink}">{entryTitle}</a>\
-													<em>{entryDate} - {entryTime}</em>\
-													{entryImage}\
-													<p>{entryContent}</p>\
-													<span>via <a target="_blank" href="{entryFeedLink}" title="{entryFeedDescription}">{entryFeedPresetTitle}</a></span>\
-												</div>\
-											</li>\
-					',											// theme for each feed entry
-					feeds: {								// source feeds (must be in RSS or Atom format) and preset feed name
+					templateContainer: 'grid',			// Underscore.js template
+					count: 25, 											// maximum number of feed items to process per feed
+					proxy: 'google',								// google or yql (google is faster)
+					totalCount: 75,									// total feed items to output
+					feeds: {												// source feeds (must be in RSS or Atom format) and preset feed name
 						'http://www.motomag.gr/moto/index.php?option=com_k2&view=itemlist&layout=category&task=category&id=1&Itemid=111&format=feed': 'Moto Mag',
 						'http://www.all4moto.gr/feed/': 'all4moto.gr',
 						'http://www.bikeit.gr/2012-05-03-12-44-17/world-news.feed': 'BikeIt',
@@ -62,8 +45,7 @@
 						'http://www.sport-fm.gr/list/248.feed': 'Sport-fm.gr',
 						'http://www.zougla.gr/ArticleRss.xml?cid=212': 'Zougla.gr/Moto',
 						'http://www.autoblog.gr/category/general-categories/general-caregories/motorbikes/feed/': 'AutoBlog.gr'
-					},
-					templateContainer: 'grid'
+					}
 				});
 
 				// Not AMJR!
@@ -71,34 +53,33 @@
 					window.location.reload();
 				},15*60*1000);
 
-			});
+				// Output
+				AMJR_COMPLETE = false;
+				function loadMasonry() {
+					if (!AMJR_COMPLETE) {
+						window.setTimeout(loadMasonry, 100);
+					} else {
+						imagesLoaded( '#amjrInst', function() {
+							var container = document.querySelector('#amjrInst');
+							/*
+							var pckry = new Packery( container, {
+								 itemSelector: '.box',
+								 gutter: 0
+							});
+							*/
+							var msnry = new Masonry( container, {
+								columnWidth: '.box',
+								 itemSelector: '.box'
+							});
 
-			// Output
-			AMJR_COMPLETE = false;
-			function loadMasonry() {
-				if (!AMJR_COMPLETE) {
-					window.setTimeout(loadMasonry, 100);
-				} else {
-					imagesLoaded( '#amjrInst', function() {
-						var container = document.querySelector('#amjrInst');
-						/*
-						var pckry = new Packery( container, {
-						  itemSelector: '.box',
-						  gutter: 0
 						});
-						*/
-						var msnry = new Masonry( container, {
-							columnWidth: '.box',
-						  itemSelector: '.box'
-						});
-						
-					});
 
+					}
 				}
-			}
-			loadMasonry();
+				loadMasonry();
 
-	  </script>
+			});
+		</script>
 		<!-- AMJR [end] -->
 	</head>
 	<body>
@@ -116,9 +97,9 @@
 				</li>
 			</ul>
 		</div>
-    <script type="text/html" id="grid">
-	    <ul id="amjrInst" class="amjr">
-	    	<% var op = rc.output; for(var i=0; i<op.length; i++){ var entry = op[i]; %>
+		<script type="text/html" id="grid">
+			 <ul id="amjrInst" class="amjr">
+			 	<% var op = rc.output; for(var i=0; i<op.length; i++){ var entry = op[i]; %>
 				<li class="box">
 					<div class="<%= entry.cssClass %>">
 						<a class="title" target="_blank" title="<%- entry.title %>" href="<%= entry.link %>"><%= entry.title %></a>
@@ -131,9 +112,9 @@
 				<% } %>
 				<div class="clr"></div>
 			</ul>
-    </script>
-    <footer>
-    	Copyright &copy; 2008-<script type="text/javascript">var d=new Date();document.write(d.getFullYear());</script> Newsfeed.gr.
-    </footer>
+		</script>
+		<footer>
+			Copyright &copy; 2008-<script type="text/javascript">var d=new Date();document.write(d.getFullYear());</script> Newsfeed.gr.
+		</footer>
 	</body>
 </html>

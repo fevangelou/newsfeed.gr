@@ -219,11 +219,13 @@ var NUAMJR_UTILS = {
 		
 		var entries = {};
 		entries.output = output;
+		/*
 		entries.loader = {
 			loaderID: params.loaderID,
 			totalCount: params.totalCount,
 			totalFeedsCount: params.feedCount
 		};
+		*/
 		
 		_.templateSettings.variable = "rc";		
     container.innerHTML = _.template(template, entries);

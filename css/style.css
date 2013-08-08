@@ -53,7 +53,7 @@ footer {display:none;position:fixed;bottom:0;left:0;right:0;text-align:center;pa
 footer a {color:#fff;}
 
 /* AMJR */
-.amjr {margin:0;padding:4px;list-style:none;}
+.amjr {margin:0;padding:4px 0;list-style:none;}
 .amjr li,
 .box {float:left;padding:0;margin:0;width:20%;}
 .amjr li div {background:#fff;padding:10px;margin:5px;overflow-x:hidden;border-radius:4px;box-shadow:0 1px 2px #999;}
@@ -69,7 +69,6 @@ footer a {color:#fff;}
 .amjr li.loader div {background:#fff url(../images/amjr-loader.gif) no-repeat 20px 50%;margin:20px auto;padding:20px 20px 20px 52px;border:none;color:#555;font-weight:bold;font-size:14px;width:240px;}
 
 /* Responsive FTW */
-/*
 @media all and (min-width:801px) {
 	.amjr li:nth-child(5n+1) {clear:left;}
 }
@@ -88,4 +87,3 @@ footer a {color:#fff;}
 	.amjr li {display:block;padding:0;margin:0;width:100%;clear:both;}
 	footer {position:static;}
 }
-*/
