@@ -275,6 +275,7 @@ var NUAMJR = (function(){
 							theImage = allImages[0];
 							theImage = theImage.replace(/ (width|height|style|vspace|hspace|border|title)=".*?"/gi, '').replace(/ alt=".*?"/i, ' alt="'+cleanTitle+'"');
 							//theImage = theImage.replace(/ src="/i, ' src="http://src'+NUAMJR_UTILS.rand(1,4)+'.sencha.io/220/');
+							theImage = theImage.replace(/ src="/i, ' src="http://cdn.filter.to/220x1000/');
 						} else {
 							theImage = '';
 						}
