@@ -18,8 +18,12 @@
 	  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:regular,italic,bold,bolditalic" />
 	  <link rel="stylesheet" href="css/style.css" />
 
+		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+		<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
+		<script type="text/javascript" src="js/imagesloaded.js"></script>
+
 	  <!-- AMJR [start] -->
-	  <script type="text/javascript" src="http://documentcloud.github.io/underscore/underscore-min.js"></script>
+	  <script type="text/javascript" src="js/underscore-min.js"></script>
 	  <script type="text/javascript" src="js/amjr_2.0.js"></script>
 	  <script type="text/javascript">
 			NUAMJR_UTILS.ready(function() {
@@ -61,13 +65,39 @@
 					},
 					templateContainer: 'grid'
 				});
-				
+
 				// Not AMJR!
 				setTimeout(function(){
 					window.location.reload();
 				},15*60*1000);
-				
+
 			});
+
+			// Output
+			AMJR_COMPLETE = false;
+			function loadMasonry() {
+				if (!AMJR_COMPLETE) {
+					window.setTimeout(loadMasonry, 100);
+				} else {
+					imagesLoaded( '#amjrInst', function() {
+						var container = document.querySelector('#amjrInst');
+						/*
+						var pckry = new Packery( container, {
+						  itemSelector: '.box',
+						  gutter: 0
+						});
+						*/
+						var msnry = new Masonry( container, {
+							columnWidth: '.box',
+						  itemSelector: '.box'
+						});
+						
+					});
+
+				}
+			}
+			loadMasonry();
+
 	  </script>
 		<!-- AMJR [end] -->
 	</head>
@@ -87,9 +117,9 @@
 			</ul>
 		</div>
     <script type="text/html" id="grid">
-	    <ul id="amjrInst" class="amjr">	    	
+	    <ul id="amjrInst" class="amjr">
 	    	<% var op = rc.output; for(var i=0; i<op.length; i++){ var entry = op[i]; %>
-				<li>
+				<li class="box">
 					<div class="<%= entry.cssClass %>">
 						<a class="title" target="_blank" title="<%- entry.title %>" href="<%= entry.link %>"><%= entry.title %></a>
 						<em><%= entry.date %> - <%= entry.time %></em>
